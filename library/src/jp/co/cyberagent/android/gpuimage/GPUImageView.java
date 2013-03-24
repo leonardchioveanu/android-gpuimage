@@ -18,6 +18,7 @@ package jp.co.cyberagent.android.gpuimage;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
@@ -41,6 +42,9 @@ public class GPUImageView extends GLSurfaceView {
     }
 
     private void init() {
+    	setZOrderOnTop(true);
+    	setEGLConfigChooser(8, 8, 8, 8, 16, 0);
+    	getHolder().setFormat(PixelFormat.TRANSLUCENT);    	
         mGPUImage = new GPUImage(getContext());
         mGPUImage.setGLSurfaceView(this);
     }
