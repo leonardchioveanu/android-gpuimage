@@ -69,7 +69,7 @@ public class GPUImageRenderer implements Renderer, PreviewCallback {
     private Rotation mRotation;
     private boolean mFlipHorizontal;
     private boolean mFlipVertical;
-    private GPUImage.ScaleType mScaleType = GPUImage.ScaleType.CENTER_CROP;
+    private GPUImage.ScaleType mScaleType = GPUImage.ScaleType.CENTER_INSIDE;
 
     public GPUImageRenderer(final GPUImageFilter filter) {
         mFilter = filter;

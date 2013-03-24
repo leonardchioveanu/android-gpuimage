@@ -54,7 +54,7 @@ public class GPUImage {
     private GLSurfaceView mGlSurfaceView;
     private GPUImageFilter mFilter;
     private Bitmap mCurrentBitmap;
-    private ScaleType mScaleType = ScaleType.CENTER_CROP;
+    private ScaleType mScaleType = ScaleType.CENTER_INSIDE;
 
     /**    
      * Instantiates a new GPUImage object.   
