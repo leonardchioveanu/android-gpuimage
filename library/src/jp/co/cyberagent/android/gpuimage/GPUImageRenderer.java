@@ -16,6 +16,7 @@
 
 package jp.co.cyberagent.android.gpuimage;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -108,7 +109,8 @@ public class GPUImageRenderer implements Renderer, PreviewCallback {
         }
     }
 
-    @Override
+    @SuppressLint("WrongCall")
+	@Override
     public void onDrawFrame(final GL10 gl) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         synchronized (mRunOnDraw) {

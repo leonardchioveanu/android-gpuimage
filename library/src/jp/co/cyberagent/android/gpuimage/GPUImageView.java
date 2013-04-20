@@ -142,4 +142,8 @@ public class GPUImageView extends GLSurfaceView {
                                final GPUImage.OnPictureSavedListener listener) {
         mGPUImage.saveToPictures(folderName, fileName, listener);
     }
+    
+    public GPUImage getGPUImage(){
+    	return mGPUImage;
+    }
 }
