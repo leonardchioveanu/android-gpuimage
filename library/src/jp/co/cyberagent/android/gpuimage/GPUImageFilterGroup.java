@@ -158,7 +158,7 @@ public class GPUImageFilterGroup extends GPUImageFilter {
         for (int i = 0; i < mFilters.size() - 1; i++) {
             GPUImageFilter filter = mFilters.get(i);
             GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, mFrameBuffers[i]);
-            GLES20.glClearColor(0, 0, 0, 1);
+            GLES20.glClearColor(0, 0, 0, 0);
             filter.onDraw(previousTexture, mGLCubeBuffer,
                     (i == 0 && mFilters.size() % 2 == 0) ? mGLTextureFlipBuffer : mGLTextureBuffer);
             GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0);
