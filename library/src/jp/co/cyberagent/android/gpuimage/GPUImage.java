@@ -16,6 +16,15 @@
 
 package jp.co.cyberagent.android.gpuimage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.List;
+import java.util.concurrent.Semaphore;
+
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -37,12 +46,6 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.Display;
 import android.view.WindowManager;
-
-import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
-import java.util.concurrent.Semaphore;
 
 /**
  * The main accessor for GPUImage functionality. This class helps to do common
@@ -221,6 +224,7 @@ public class GPUImage {
         new LoadImageFileTask(this, file).execute();
     }
 
+    /*
     private String getPath(final Uri uri) {
         String[] projection = {
                 MediaStore.Images.Media.DATA,
@@ -235,7 +239,8 @@ public class GPUImage {
         cursor.close();
         return path;
     }
-
+	*/
+    
     /**
      * Gets the current displayed image with applied filter as a Bitmap.
      * 
@@ -356,7 +361,8 @@ public class GPUImage {
         new SaveTask(bitmap, folderName, fileName, listener).execute();
     }
 
-    private int getOutputWidth() {
+    @SuppressWarnings("deprecation")
+	private int getOutputWidth() {
         if (mRenderer != null && mRenderer.getFrameWidth() != 0) {
             return mRenderer.getFrameWidth();
         } else if (mCurrentBitmap != null) {
@@ -369,7 +375,8 @@ public class GPUImage {
         }
     }
 
-    private int getOutputHeight() {
+    @SuppressWarnings("deprecation")
+	private int getOutputHeight() {
         if (mRenderer != null && mRenderer.getFrameHeight() != 0) {
             return mRenderer.getFrameHeight();
         } else if (mCurrentBitmap != null) {
@@ -519,7 +526,6 @@ public class GPUImage {
         private int mOutputWidth;
         private int mOutputHeight;
 
-        @SuppressWarnings("deprecation")
         public LoadImageTask(final GPUImage gpuImage) {
             mGPUImage = gpuImage;
         }

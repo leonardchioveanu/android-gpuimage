@@ -99,7 +99,8 @@ public class GPUImageToneCurveFilter extends GPUImageFilter {
 
     public void setFromCurveFileInputStream(InputStream input) {
         try {
-            int version = readShort(input);
+            @SuppressWarnings("unused")
+			int version = readShort(input);
             int totalCurves = readShort(input);
 
             ArrayList<PointF[]> curves = new ArrayList<PointF[]>(totalCurves);
