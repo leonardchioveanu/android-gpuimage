@@ -64,7 +64,6 @@ public class GPUImageRenderer implements Renderer, PreviewCallback {
     private int mOutputHeight;
     private int mImageWidth;
     private int mImageHeight;
-    private int mAddedPadding;
 
     private final Queue<Runnable> mRunOnDraw;
     private Rotation mRotation;
@@ -211,17 +210,12 @@ public class GPUImageRenderer implements Renderer, PreviewCallback {
             @Override
             public void run() {
                 Bitmap resizedBitmap = null;
-                if (bitmap.getWidth() % 2 == 1) {
-                    resizedBitmap = Bitmap.createBitmap(bitmap.getWidth() + 1, bitmap.getHeight(),
-                            Bitmap.Config.ARGB_8888);
-                    Canvas can = new Canvas(resizedBitmap);
-                    can.drawARGB(0x00, 0x00, 0x00, 0x00);
-                    can.drawBitmap(bitmap, 0, 0, null);
-                    mAddedPadding = 1;
-                } else {
-                    mAddedPadding = 0;
-                }
-
+                resizedBitmap = Bitmap.createBitmap(bitmap.getWidth() + 1, bitmap.getHeight(),
+                        Bitmap.Config.ARGB_8888);
+                Canvas can = new Canvas(resizedBitmap);
+                can.drawARGB(0x00, 0x00, 0x00, 0x00);
+                can.drawBitmap(bitmap, 0, 0, null);
+                
                 mGLTextureId = OpenGlUtils.loadTexture(
                         resizedBitmap != null ? resizedBitmap : bitmap, mGLTextureId, recycle);
                 if (resizedBitmap != null) {
