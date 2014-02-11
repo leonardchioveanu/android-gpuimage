@@ -66,7 +66,7 @@ public class GPUImage {
      */
     public GPUImage(final Context context) {  
         if (!supportsOpenGLES2(context)) {
-            throw new IllegalStateException("OpenGL ES 2.0 is not supported on this phone.");
+            //throw new IllegalStateException("OpenGL ES 2.0 is not supported on this phone.");
         }
  
         mContext = context; 
