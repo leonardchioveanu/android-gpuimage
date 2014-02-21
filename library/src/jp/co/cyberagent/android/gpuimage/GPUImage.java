@@ -284,6 +284,7 @@ public class GPUImage {
         PixelBuffer buffer = new PixelBuffer(bitmap.getWidth(), bitmap.getHeight());
         buffer.setRenderer(renderer);
         renderer.setImageBitmap(bitmap, false);
+        System.gc();
         Bitmap result = buffer.getBitmap();
         mFilter.destroy();
         renderer.deleteImage();
@@ -294,7 +295,7 @@ public class GPUImage {
             mRenderer.setImageBitmap(mCurrentBitmap, false);
         }
         requestRender();
-
+        
         return result;
     }
 
