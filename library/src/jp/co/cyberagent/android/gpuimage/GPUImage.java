@@ -284,7 +284,6 @@ public class GPUImage {
         PixelBuffer buffer = new PixelBuffer(bitmap.getWidth(), bitmap.getHeight());
         buffer.setRenderer(renderer);
         renderer.setImageBitmap(bitmap, false);
-        System.gc();
         Bitmap result = buffer.getBitmap();
         mFilter.destroy();
         renderer.deleteImage();
@@ -590,7 +589,6 @@ public class GPUImage {
             Bitmap workBitmap = Bitmap.createScaledBitmap(bitmap, newSize[0], newSize[1], true);
             bitmap.recycle();
             bitmap = workBitmap;
-            System.gc();
 
             if (mScaleType == ScaleType.CENTER_CROP) {
                 // Crop it

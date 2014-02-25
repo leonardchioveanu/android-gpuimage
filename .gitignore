@@ -4,3 +4,11 @@ target/
 
 .idea/
 *.iml
+
+library/.classpath
+
+library/.project
+
+sample/.classpath
+
+library/.project
