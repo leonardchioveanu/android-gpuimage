@@ -42,10 +42,10 @@ public class GPUImageView extends GLSurfaceView {
     }
 
     private void init() {
-    	setZOrderOnTop(true);
+    	setZOrderOnTop(false);
     	setEGLContextClientVersion(2);
     	setEGLConfigChooser(8, 8, 8, 8, 16, 0);
-    	getHolder().setFormat(PixelFormat.RGBA_8888);
+    	getHolder().setFormat(PixelFormat.TRANSPARENT);
         mGPUImage = new GPUImage(getContext());
         mGPUImage.setGLSurfaceView(this);
     }
