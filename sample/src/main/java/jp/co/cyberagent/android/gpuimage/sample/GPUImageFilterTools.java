@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 import android.graphics.PointF;
+import android.opengl.Matrix;
 
 public class GPUImageFilterTools {  
     public static void showDialog(final Context context,
@@ -80,6 +81,8 @@ public class GPUImageFilterTools {
         filters.addFilter("Blend (Normal)", FilterType.BLEND_NORMAL);
 
         filters.addFilter("Lookup (Amatorka)", FilterType.LOOKUP_AMATORKA);
+
+        filters.addFilter("Transform (2-D)", FilterType.TRANSFORM2D);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Choose a filter");
@@ -215,6 +218,9 @@ public class GPUImageFilterTools {
                 GPUImageLookupFilter amatorka = new GPUImageLookupFilter();
                 amatorka.setBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.lookup_amatorka));
                 return amatorka;
+
+            case TRANSFORM2D:
+                return new GPUImageTransformFilter();
             default:
                 throw new IllegalStateException("No filter of that type!");
         }
@@ -240,7 +246,7 @@ public class GPUImageFilterTools {
         CONTRAST, GRAYSCALE, SHARPEN, SEPIA, SOBEL_EDGE_DETECTION, THREE_X_THREE_CONVOLUTION, FILTER_GROUP, EMBOSS, POSTERIZE, GAMMA, BRIGHTNESS, INVERT, HUE, PIXELATION,
         SATURATION, EXPOSURE, HIGHLIGHT_SHADOW, MONOCHROME, OPACITY, RGB, WHITE_BALANCE, VIGNETTE, TONE_CURVE, BLEND_COLOR_BURN, BLEND_COLOR_DODGE, BLEND_DARKEN, BLEND_DIFFERENCE,
         BLEND_DISSOLVE, BLEND_EXCLUSION, BLEND_SOURCE_OVER, BLEND_HARD_LIGHT, BLEND_LIGHTEN, BLEND_ADD, BLEND_DIVIDE, BLEND_MULTIPLY, BLEND_OVERLAY, BLEND_SCREEN, BLEND_ALPHA,
-        BLEND_COLOR, BLEND_HUE, BLEND_SATURATION, BLEND_LUMINOSITY, BLEND_LINEAR_BURN, BLEND_SOFT_LIGHT, BLEND_SUBTRACT, BLEND_CHROMA_KEY, BLEND_NORMAL, LOOKUP_AMATORKA
+        BLEND_COLOR, BLEND_HUE, BLEND_SATURATION, BLEND_LUMINOSITY, BLEND_LINEAR_BURN, BLEND_SOFT_LIGHT, BLEND_SUBTRACT, BLEND_CHROMA_KEY, BLEND_NORMAL, LOOKUP_AMATORKA, TRANSFORM2D
     }
 
     private static class FilterList {
@@ -297,6 +303,8 @@ public class GPUImageFilterTools {
                 adjuster = new VignetteAdjuster().filter(filter);
             } else if (filter instanceof GPUImageDissolveBlendFilter) {
                 adjuster = new DissolveBlendAdjuster().filter(filter);
+            } else if (filter instanceof GPUImageTransformFilter) {
+                adjuster = new RotateAdjuster().filter(filter);
             } else {
                 adjuster = null;
             }
@@ -475,6 +483,15 @@ public class GPUImageFilterTools {
             @Override
             public void adjust(final int percentage) {
                 getFilter().setMix(range(percentage, 0.0f, 1.0f));
+            }
+        }
+
+        private class RotateAdjuster extends Adjuster<GPUImageTransformFilter> {
+            @Override
+            public void adjust(final int percentage) {
+                float[] transform = new float[16];
+                Matrix.setRotateM(transform, 0, 360 * percentage / 100, 0, 0, 1.0f);
+                getFilter().setTransform3D(transform);
             }
         }
     }
