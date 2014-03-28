@@ -19,8 +19,8 @@ function updateManifest {
   perl -pi -e 's#(android:versionCode=")([0-9]+)(")#"$1" . ($2 + 1) . "$3"#e;' $1
   perl -pi -e "s/android:versionName=\"(.*)\"/android:versionName=\"$VERSION\"/g" $1
 }
-updateManifest "sample/AndroidManifest.xml"
-updateManifest "library/AndroidManifest.xml"
+updateManifest "sample/src/main/AndroidManifest.xml"
+updateManifest "library/src/main/AndroidManifest.xml"
 
 echo ""
 echo "# Now run:"
