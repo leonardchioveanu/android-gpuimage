@@ -2,6 +2,9 @@
     package="jp.co.cyberagent.android.gpuimage"
     android:versionCode="5"
     android:versionName="1.0.5" >
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
 
     <application />
 
